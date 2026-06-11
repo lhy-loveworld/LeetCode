@@ -1,6 +1,6 @@
 // 486. Predict the Winner
 // Medium
-// Memoization.
+// Recursion + Memoization.
 // TC: O(N^2)
 // SC: O(N^2)
 class Solution {
@@ -19,9 +19,26 @@ class Solution {
     memoization_[start][end] = max(res_left, res_right);
     return memoization_[start][end];
   }
-    
+
   bool PredictTheWinner(vector<int>& nums) {
-    memoization_ = std::vector<std::vector<int>>(nums.size(), std::vector<int>(nums.size(), INT_MAX));
+    memoization_ = std::vector<std::vector<int>>(
+        nums.size(), std::vector<int>(nums.size(), INT_MAX));
     return helper(0, nums.size() - 1, nums) >= 0;
+  }
+};
+
+// DP
+// Time Complexity: O(n^2)
+// Space Complexity: O(n)
+class Solution {
+ public:
+  bool predictTheWinner(vector<int>& nums) {
+    std::vector<int> dp = nums;
+    for (int i = 1; i < nums.size(); ++i) {
+      for (int j = 0; j + i < nums.size(); ++j) {
+        dp[j] = std::max(nums[j] - dp[j + 1], nums[j + i] - dp[j]);
+      }
+    }
+    return dp[0] >= 0;
   }
 };
