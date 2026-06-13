@@ -8,7 +8,8 @@ class Solution {
  public:
   // Method 1: Recursion + Memoisation
   std::vector<std::vector<int>> min_k_;
-  int RecFind(const std::vector<std::vector<int>>& min_1, int k, int start, int end) {
+  int RecFind(const std::vector<std::vector<int>>& min_1, int k, int start,
+              int end) {
     if (k == 1) return min_1[start][end];
     if (min_k_[k][end] >= 0) return min_k_[k][end];
     int res = INT_MAX;
@@ -22,7 +23,7 @@ class Solution {
     int n = houses.size();
     std::sort(houses.begin(), houses.end());
     for (int i = 1; i < n; ++i) {
-      houses[i] += houses[i-1];
+      houses[i] += houses[i - 1];
     }
     std::vector<std::vector<int>> min_1(n, std::vector<int>(n));
     for (int i = 0; i < n; ++i) {
@@ -30,7 +31,7 @@ class Solution {
         int len = j - i + 1;
         int mid = (i + j) / 2;
         min_1[i][j] = houses[j] - houses[mid] * 2;
-	if (len % 2 == 1) {
+        if (len % 2 == 1) {
           min_1[i][j] += houses[mid] - houses[mid - 1];
         }
         if (i != 0) min_1[i][j] += houses[i - 1];
@@ -46,12 +47,12 @@ class Solution {
     int n = houses.size();
     std::sort(houses.begin(), houses.end());
     for (int i = 1; i < n; ++i) {
-      houses[i] += houses[i-1];
+      houses[i] += houses[i - 1];
     }
     std::vector<std::vector<int>> min_1(n, std::vector<int>(n));
     for (int i = 0; i < n; ++i) {
       for (int j = i + 1; j < n; ++j) {
-	int len = j - i + 1;
+        int len = j - i + 1;
         int mid = (i + j) / 2;
         min_1[i][j] = houses[j] - houses[mid] * 2;
         if (len % 2 == 1) {
